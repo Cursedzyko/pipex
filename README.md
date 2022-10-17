@@ -12,7 +12,7 @@ This project aims to deepen your understanding of the two concepts that you alre
 ## Idea
 
 The general idea: we read from infile, execute cmd1 with infile as input, send the output to cmd2, which will write to outfile.
-[pipe()](https://www.geeksforgeeks.org/pipe-system-call/) sends the output of the first [execve()] (https://linuxhint.com/c-execve-function-usage/#:~:text=Execve()%20function%20is%20used,program%20and%20print%20the%20output.) as input to the second execve(); [fork()](https://www.geeksforgeeks.org/fork-system-call/#:~:text=Fork%20system%20call%20is%20used,the%20fork()%20system%20call.) runs two processes (i.e. two commands) in one single program; [dup2()](https://www.geeksforgeeks.org/dup-dup2-linux-system-call/) swaps our files with stdin and stdout.
+[pipe()](https://www.geeksforgeeks.org/pipe-system-call/) sends the output of the first [execve()] (https://man7.org/linux/man-pages/man2/execve.2.html) as input to the second execve(); [fork()](https://www.geeksforgeeks.org/fork-system-call/#:~:text=Fork%20system%20call%20is%20used,the%20fork()%20system%20call.) runs two processes (i.e. two commands) in one single program; [dup2()](https://www.geeksforgeeks.org/dup-dup2-linux-system-call/) swaps our files with stdin and stdout.
 
 ```
 // each cmd needs a stdin (input) and returns an output (to stdout)
