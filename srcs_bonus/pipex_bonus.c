@@ -6,7 +6,7 @@
 /*   By: zyunusov <zyunusov@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 12:04:49 by zyunusov          #+#    #+#             */
-/*   Updated: 2022/10/17 12:17:52 by zyunusov         ###   ########.fr       */
+/*   Updated: 2022/10/19 10:53:47 by zyunusov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,19 @@ void	ft_error_f(char *f, char *s, int err_exit)
 	ft_putstr_fd(s, 2);
 	ft_putstr_fd("\n", 2);
 	exit(err_exit);
+}
+
+void	free_paths(t_data *data)
+{
+	int i;
+
+	i = 0;
+	while(data->path_cmd[i])
+	{
+		free(data->path_cmd[i]);
+		i++;
+	}
+	free(data->path_cmd);
 }
 
 static void	ft_init(t_data *data, int argc, char **argv, char **envp)
