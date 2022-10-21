@@ -1,0 +1,13 @@
+Makefile
+README.md
+infile
+libft
+outfile
+TiTex
+TiTex.dSYM
+TiTex.h
+TiTex_bonus
+TiTex_bonus.dSYM
+TiTex_bonus.h
+srcs
+srcs_bonus

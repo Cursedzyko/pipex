@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: zyunusov <zyunusov@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/17 12:04:49 by zyunusov          #+#    #+#             */
-/*   Updated: 2022/10/19 10:53:47 by zyunusov         ###   ########.fr       */
+/*   Created: 2022/10/21 16:06:39 by zyunusov          #+#    #+#             */
+/*   Updated: 2022/10/21 16:09:41 by zyunusov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void	ft_error_f(char *f, char *s, int err_exit)
 
 void	free_paths(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(data->path_cmd[i])
+	while (data->path_cmd[i])
 	{
 		free(data->path_cmd[i]);
 		i++;
@@ -34,9 +34,16 @@ void	free_paths(t_data *data)
 	free(data->path_cmd);
 }
 
+char	*find_path(char **envp)
+{
+	while (ft_strncmp("PATH=", *envp, 5))
+		envp++;
+	return (*envp + 5);
+}
+
 static void	ft_init(t_data *data, int argc, char **argv, char **envp)
 {
-    data->have_here_doc = 0;
+	data->have_here_doc = 0;
 	data->outfile = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0664);
 	if (data->outfile < 0)
 		ft_error_f("Invalid", "outfile", ERR_FILE);
@@ -49,22 +56,22 @@ static void	ft_init(t_data *data, int argc, char **argv, char **envp)
 	}
 	data->path = find_path(envp);
 	data->path_cmd = ft_split(data->path, ':');
-    data->total_cmds = argc - 3;
-    pipes_create(data, argv, envp);
-    
+	data->total_cmds = argc - 3;
+	pipes_create(data, argv, envp);
+	free_paths(data);
 }
 
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
-    t_data data;
+	t_data	data;
 
-    if (argc < 5)
-        ft_error_f("Usage", "./pipex file1 cmd1 cmd2 cmd3 ... cmdn file2", 2);
-    else if ((ft_strncmp(argv[1], "here_doc", 8) == 0) && (argc < 6))
-        ft_error_f("Usage", "./pipex here_doc LIMITER cmd cmd1 file", 2);
-    else if ((ft_strncmp(argv[1], "here_doc", 8) == 0) && (argc >= 6))
-        ft_init_here_doc(&data, argc, argv, envp);
-    else if (argc >= 5)
-        ft_init(&data, argc, argv, envp);
-    return (WEXITSTATUS(data.exit_status));
+	if (argc < 5)
+		ft_error_f("Usage", "./pipex file1 cmd1 cmd2 cmd3 ... cmdn file2", 2);
+	else if ((ft_strncmp(argv[1], "here_doc", 8) == 0) && (argc < 6))
+		ft_error_f("Usage", "./pipex here_doc LIMITER cmd cmd1 file", 2);
+	else if ((ft_strncmp(argv[1], "here_doc", 8) == 0) && (argc >= 6))
+		ft_init_here_doc(&data, argc, argv, envp);
+	else if (argc >= 5)
+		ft_init(&data, argc, argv, envp);
+	return (WEXITSTATUS(data.exit_status));
 }
