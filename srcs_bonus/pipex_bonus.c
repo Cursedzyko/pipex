@@ -6,7 +6,7 @@
 /*   By: zyunusov <zyunusov@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 16:06:39 by zyunusov          #+#    #+#             */
-/*   Updated: 2022/10/21 16:09:41 by zyunusov         ###   ########.fr       */
+/*   Updated: 2022/10/21 17:30:15 by zyunusov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,17 @@ static void	ft_init(t_data *data, int argc, char **argv, char **envp)
 	data->have_here_doc = 0;
 	data->outfile = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0664);
 	if (data->outfile < 0)
-		ft_error_f("Invalid", "outfile", ERR_FILE);
+	{
+		if (!access(argv[argc - 1], F_OK))
+			ft_error_f("Permission denied", argv[argc - 1], 0);
+		ft_error_f("no such file or directory", argv[argc - 1], ERR_FILE);
+	}
 	data->infile = open(argv[1], O_RDONLY);
 	if (data->infile < 0)
 	{
 		if (!access(argv[1], F_OK))
-			ft_error_f("Permission denied", "infile", 0);
-		ft_error_f("Invalid", "infile", ERR_FILE);
+			ft_error_f("Permission denied", argv[1], 0);
+		ft_error_f("no such file or directory", argv[1], ERR_FILE);
 	}
 	data->path = find_path(envp);
 	data->path_cmd = ft_split(data->path, ':');
