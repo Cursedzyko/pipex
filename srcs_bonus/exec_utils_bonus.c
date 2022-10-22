@@ -6,7 +6,7 @@
 /*   By: zyunusov <zyunusov@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:58:35 by zyunusov          #+#    #+#             */
-/*   Updated: 2022/10/21 16:16:21 by zyunusov         ###   ########.fr       */
+/*   Updated: 2022/10/22 17:10:06 by zyunusov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	child_in(t_data data, char **argv, char **envp, int i)
 	close_pipes(&data);
 	close(data.infile);
 	parse_args(&data, argv[2 + data.have_here_doc]);
-	data.cmd = get_cmd(data.path_cmd, data.args_cmd[0]);
+	check_for_path(&data);
 	if (!data.cmd)
 	{
 		ft_error_f("command not found", data.args_cmd[0], CMD_NOT_FOUND);
@@ -46,7 +46,7 @@ void	child_mid(t_data data, char **argv, char **envp, int i)
 		ft_error_f("Error dup2", "child_in, stdinpipe", 2);
 	close_pipes(&data);
 	parse_args(&data, argv[2 + i + data.have_here_doc]);
-	data.cmd = get_cmd(data.path_cmd, data.args_cmd[0]);
+	check_for_path(&data);
 	if (!data.cmd)
 	{
 		ft_error_f("command not found", data.args_cmd[0], CMD_NOT_FOUND);
@@ -72,7 +72,7 @@ void	child_out(t_data data, char **argv, char **envp, int i)
 	close_pipes(&data);
 	close(data.outfile);
 	parse_args(&data, argv[2 + i + data.have_here_doc]);
-	data.cmd = get_cmd(data.path_cmd, data.args_cmd[0]);
+	check_for_path(&data);
 	if (!data.cmd)
 	{
 		ft_error_f("command not found", data.args_cmd[0], CMD_NOT_FOUND);

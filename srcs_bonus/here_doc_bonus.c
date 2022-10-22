@@ -6,7 +6,7 @@
 /*   By: zyunusov <zyunusov@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 16:20:51 by zyunusov          #+#    #+#             */
-/*   Updated: 2022/10/21 16:16:37 by zyunusov         ###   ########.fr       */
+/*   Updated: 2022/10/22 17:19:04 by zyunusov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,21 @@ void	ft_init_here_doc(t_data *data, int argc, char **argv, char **envp)
 	data->have_here_doc = 1;
 	data->outfile = open(argv[argc - 1], O_CREAT | O_WRONLY | O_APPEND, 0664);
 	if (data->outfile < 0)
-		ft_error_f("Invalid", "outfile", ERR_FILE);
+	{
+		if (!access(argv[argc - 1], F_OK))
+			ft_error_f(argv[argc - 1], "Permission denied", 0);
+		ft_error_f(argv[argc - 1], "no such file or directory", ERR_FILE);
+	}
 	data->path = find_path(envp);
 	data->path_cmd = ft_split(data->path, ':');
 	data->total_cmds = argc - 4;
 	get_infile_here_doc(data, argv);
 	if (data->infile < 0)
-		ft_error_f("Invalid", "infile", ERR_FILE);
+	{
+		if (!access(data->infile, F_OK))
+			ft_error_f(data->infile, "Permission denied", 0);
+		ft_error_f(data->infile, "no such file or directory", ERR_FILE);
+	}
 	pipes_create(data, argv, envp);
 	free_paths(data);
 }

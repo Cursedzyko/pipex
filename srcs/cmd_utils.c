@@ -6,7 +6,7 @@
 /*   By: zyunusov <zyunusov@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 15:13:16 by zyunusov          #+#    #+#             */
-/*   Updated: 2022/10/17 11:30:36 by zyunusov         ###   ########.fr       */
+/*   Updated: 2022/10/22 17:05:47 by zyunusov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,17 @@ void	free_cmd(t_data *data)
 	}
 	free(data->args_cmd);
 	free(data->cmd);
+}
+
+void	check_for_path(t_data *data)
+{
+	if (ft_strchr(data->args_cmd[0], '/') != 0)
+	{
+		if (access(data->args_cmd[0], F_OK) == 0)
+			data->cmd = data->args_cmd[0];
+		else
+			ft_error_f(data->args_cmd[0], "No such file or directory", 127);
+	}
+	if (ft_strchr(data->args_cmd[0], '/') == 0)
+		data->cmd = get_cmd(data->path_cmd, data->args_cmd[0]);
 }

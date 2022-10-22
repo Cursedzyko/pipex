@@ -6,7 +6,7 @@
 /*   By: zyunusov <zyunusov@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 18:29:31 by zyunusov          #+#    #+#             */
-/*   Updated: 2022/10/17 11:33:21 by zyunusov         ###   ########.fr       */
+/*   Updated: 2022/10/22 17:04:51 by zyunusov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,6 @@ void	free_paths(t_data *data);
 void	child_in(t_data data, char **argv, char **envp);
 void	child_out(t_data data, char **argv, char **envp);
 void	parse_args(t_data *data, char *args);
+void	check_for_path(t_data *data);
 
 #endif

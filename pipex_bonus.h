@@ -6,7 +6,7 @@
 /*   By: zyunusov <zyunusov@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 16:12:56 by zyunusov          #+#    #+#             */
-/*   Updated: 2022/10/21 16:23:56 by zyunusov         ###   ########.fr       */
+/*   Updated: 2022/10/22 17:10:25 by zyunusov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,6 @@ char	*get_cmd(char **paths, char *cmd);
 void	free_cmd(t_data *data);
 void	free_pid_pipes(t_data *data);
 void	parse_args(t_data *data, char *args);
+void	check_for_path(t_data *data);
 
 #endif
