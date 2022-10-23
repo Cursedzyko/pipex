@@ -6,7 +6,7 @@
 /*   By: zyunusov <zyunusov@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 16:20:51 by zyunusov          #+#    #+#             */
-/*   Updated: 2022/10/22 17:19:04 by zyunusov         ###   ########.fr       */
+/*   Updated: 2022/10/23 10:57:22 by zyunusov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,7 @@ void	ft_init_here_doc(t_data *data, int argc, char **argv, char **envp)
 	data->total_cmds = argc - 4;
 	get_infile_here_doc(data, argv);
 	if (data->infile < 0)
-	{
-		if (!access(data->infile, F_OK))
-			ft_error_f(data->infile, "Permission denied", 0);
-		ft_error_f(data->infile, "no such file or directory", ERR_FILE);
-	}
+		ft_error_f("here_doc", "no such file or directory", ERR_FILE);
 	pipes_create(data, argv, envp);
 	free_paths(data);
 }

@@ -6,7 +6,7 @@
 #    By: zyunusov <zyunusov@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/12 18:26:49 by zyunusov          #+#    #+#              #
-#    Updated: 2022/10/19 17:04:36 by zyunusov         ###   ########.fr        #
+#    Updated: 2022/10/23 10:52:38 by zyunusov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ LIBFT_PATH = ./libft
 LIBFT = $(LIBFT_PATH)/libft.a
 MAKE = make
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
 PATH_SRC = srcs
 PATH_SRC_BONUS = srcs_bonus
 FILES_BONUS = cmd_utils_bonus.c exec_utils_bonus.c here_doc_bonus.c parse_utils_bonus.c pipes_utils_bonus.c pipex_bonus.c
