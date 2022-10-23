@@ -6,7 +6,7 @@
 /*   By: zyunusov <zyunusov@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 16:06:39 by zyunusov          #+#    #+#             */
-/*   Updated: 2022/10/21 17:30:15 by zyunusov         ###   ########.fr       */
+/*   Updated: 2022/10/23 15:31:12 by zyunusov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,7 @@ int	main(int argc, char **argv, char **envp)
 		ft_init_here_doc(&data, argc, argv, envp);
 	else if (argc >= 5)
 		ft_init(&data, argc, argv, envp);
+	close(data.infile);
+	close(data.outfile);
 	return (WEXITSTATUS(data.exit_status));
 }

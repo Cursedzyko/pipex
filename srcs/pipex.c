@@ -6,7 +6,7 @@
 /*   By: zyunusov <zyunusov@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 18:16:18 by zyunusov          #+#    #+#             */
-/*   Updated: 2022/10/22 17:17:45 by zyunusov         ###   ########.fr       */
+/*   Updated: 2022/10/23 15:29:03 by zyunusov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ int	main(int argc, char **argv, char **envp)
 	if (data.pid[1] == 0)
 		child_out(data, argv, envp);
 	close_pipes(&data);
-	close(data.pipes[0]);
-	close(data.pipes[1]);
+	close(data.infile);
+	close(data.outfile);
 	waitpid(data.pid[0], NULL, 0);
 	waitpid(data.pid[1], &data.exit_status, 0);
 	free_paths(&data);
