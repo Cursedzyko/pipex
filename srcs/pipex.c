@@ -6,7 +6,7 @@
 /*   By: zyunusov <zyunusov@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 18:16:18 by zyunusov          #+#    #+#             */
-/*   Updated: 2022/10/23 15:29:03 by zyunusov         ###   ########.fr       */
+/*   Updated: 2022/10/26 19:56:00 by zyunusov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,12 @@ void	ft_error_f(char *f, char *s, int err_exit)
 	ft_putstr_fd(": ", 2);
 	ft_putstr_fd(f, 2);
 	ft_putstr_fd("\n", 2);
-	exit(err_exit);
+	if (err_exit == 1)
+		exit(err_exit);
+	if (err_exit == 127)
+		exit(err_exit);
+	if (err_exit == 3)
+		err_exit++;
 }
 
 void	free_paths(t_data *data)
@@ -47,7 +52,7 @@ static void	ft_init(t_data *data, int argc, char **argv, char **envp)
 	if (data->outfile < 0)
 	{
 		if (!access(argv[argc - 1], F_OK))
-			ft_error_f(argv[argc - 1], "Permission denied", 0);
+			ft_error_f(argv[argc - 1], "Permission denied", 1);
 		ft_error_f(argv[argc - 1], "no such file or directory", ERR_FILE);
 	}
 	data->infile = open(argv[1], O_RDONLY);
@@ -55,7 +60,7 @@ static void	ft_init(t_data *data, int argc, char **argv, char **envp)
 	{
 		if (!access(argv[1], F_OK))
 			ft_error_f(argv[1], "Permission denied", 0);
-		ft_error_f(argv[1], "no such file or directory", ERR_FILE);
+		ft_error_f(argv[1], "no such file or directory", 0);
 	}
 	data->path = find_path(envp);
 	data->path_cmd = ft_split(data->path, ':');
@@ -66,10 +71,10 @@ int	main(int argc, char **argv, char **envp)
 	t_data	data;
 
 	if (argc != 5)
-		ft_error_f(".\\pipex infile cmd1 cmd2 outfile", "Usage", 2);
+		ft_error_f(".\\pipex infile cmd1 cmd2 outfile", "Usage", 0);
 	ft_init(&data, argc, argv, envp);
 	if (pipe(data.pipes) < 0)
-		ft_error_f("pipe", "Invalid", 2);
+		perror("Pipe error:");
 	data.pid[0] = fork();
 	if (data.pid[0] == 0)
 		child_in(data, argv, envp);
