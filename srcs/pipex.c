@@ -6,7 +6,7 @@
 /*   By: zyunusov <zyunusov@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 18:16:18 by zyunusov          #+#    #+#             */
-/*   Updated: 2022/10/26 19:56:00 by zyunusov         ###   ########.fr       */
+/*   Updated: 2022/10/26 22:39:55 by zyunusov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,33 +46,28 @@ static char	*find_path(char **envp)
 	return (*envp + 5);
 }
 
-static void	ft_init(t_data *data, int argc, char **argv, char **envp)
+static int	ft_init(t_data *data, char **argv, char **envp)
 {
-	data->outfile = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0664);
-	if (data->outfile < 0)
-	{
-		if (!access(argv[argc - 1], F_OK))
-			ft_error_f(argv[argc - 1], "Permission denied", 1);
-		ft_error_f(argv[argc - 1], "no such file or directory", ERR_FILE);
-	}
-	data->infile = open(argv[1], O_RDONLY);
-	if (data->infile < 0)
-	{
-		if (!access(argv[1], F_OK))
-			ft_error_f(argv[1], "Permission denied", 0);
-		ft_error_f(argv[1], "no such file or directory", 0);
-	}
+	int status;
+
+	status = 0;
+	ft_infile_check(argv, data);
+	status = ft_outfile_check(argv, data);
 	data->path = find_path(envp);
 	data->path_cmd = ft_split(data->path, ':');
+	
+	return (status);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
+	int		status;
+	
 
 	if (argc != 5)
 		ft_error_f(".\\pipex infile cmd1 cmd2 outfile", "Usage", 0);
-	ft_init(&data, argc, argv, envp);
+	status = ft_init(&data, argv, envp);
 	if (pipe(data.pipes) < 0)
 		perror("Pipe error:");
 	data.pid[0] = fork();
@@ -87,5 +82,7 @@ int	main(int argc, char **argv, char **envp)
 	waitpid(data.pid[0], NULL, 0);
 	waitpid(data.pid[1], &data.exit_status, 0);
 	free_paths(&data);
+	if (status == 1)
+		return (1);
 	return (WEXITSTATUS(data.exit_status));
 }

@@ -6,7 +6,7 @@
 #    By: zyunusov <zyunusov@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/12 18:26:49 by zyunusov          #+#    #+#              #
-#    Updated: 2022/10/23 15:18:58 by zyunusov         ###   ########.fr        #
+#    Updated: 2022/10/26 22:06:23 by zyunusov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ CFLAGS = -Wall -Wextra -Werror
 PATH_SRC = srcs
 PATH_SRC_BONUS = srcs_bonus
 FILES_BONUS = cmd_utils_bonus.c exec_utils_bonus.c here_doc_bonus.c parse_utils_bonus.c pipes_utils_bonus.c pipex_bonus.c
-FILES = pipex.c child_utils.c cmd_utils.c parse_args_utils.c
+FILES = pipex.c child_utils.c cmd_utils.c parse_args_utils.c check_out.c
 SRC = $(addprefix $(PATH_SRC)/,$(FILES))
 SRC_BONUS = $(addprefix $(PATH_SRC_BONUS)/,$(FILES_BONUS))
 RM = rm -rf
