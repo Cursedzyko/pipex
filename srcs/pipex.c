@@ -6,7 +6,7 @@
 /*   By: zyunusov <zyunusov@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 18:16:18 by zyunusov          #+#    #+#             */
-/*   Updated: 2022/10/26 22:39:55 by zyunusov         ###   ########.fr       */
+/*   Updated: 2022/10/26 22:47:20 by zyunusov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,13 @@ static char	*find_path(char **envp)
 
 static int	ft_init(t_data *data, char **argv, char **envp)
 {
-	int status;
+	int	status;
 
 	status = 0;
 	ft_infile_check(argv, data);
 	status = ft_outfile_check(argv, data);
 	data->path = find_path(envp);
 	data->path_cmd = ft_split(data->path, ':');
-	
 	return (status);
 }
 
@@ -63,7 +62,6 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 	int		status;
-	
 
 	if (argc != 5)
 		ft_error_f(".\\pipex infile cmd1 cmd2 outfile", "Usage", 0);

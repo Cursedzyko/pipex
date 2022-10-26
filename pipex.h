@@ -6,7 +6,7 @@
 /*   By: zyunusov <zyunusov@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 18:29:31 by zyunusov          #+#    #+#             */
-/*   Updated: 2022/10/26 22:40:31 by zyunusov         ###   ########.fr       */
+/*   Updated: 2022/10/26 22:49:03 by zyunusov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <stdio.h>
 # include <sys/wait.h>
 # include <fcntl.h>
-#include <errno.h>
+# include <errno.h>
 # include "libft/libft.h"
 
 # define CMD_NOT_FOUND 127
@@ -47,6 +47,6 @@ void	child_in(t_data data, char **argv, char **envp);
 void	child_out(t_data data, char **argv, char **envp);
 void	parse_args(t_data *data, char *args);
 void	check_for_path(t_data *data, int i);
-int    ft_outfile_check(char **argv, t_data *data);
-void  ft_infile_check(char **argv, t_data *data);
+int		ft_outfile_check(char **argv, t_data *data);
+void	ft_infile_check(char **argv, t_data *data);
 #endif
