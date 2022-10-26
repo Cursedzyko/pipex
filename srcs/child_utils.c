@@ -6,7 +6,7 @@
 /*   By: zyunusov <zyunusov@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 11:50:49 by zyunusov          #+#    #+#             */
-/*   Updated: 2022/10/26 22:37:52 by zyunusov         ###   ########.fr       */
+/*   Updated: 2022/10/27 00:34:28 by zyunusov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ void	child_in(t_data data, char **argv, char **envp)
 	check_for_path(&data, 0);
 	if (!data.cmd)
 	{
-		ft_error_f("command not found", data.args_cmd[0], 0);
+		if (!ft_strchr(data.args_cmd[0], '/'))
+			ft_error_f("command not found", data.args_cmd[0], 0);
 		free_cmd(&data);
 		free_paths(&data);
 		exit (CMD_NOT_FOUND);
@@ -53,7 +54,8 @@ void	child_out(t_data data, char **argv, char **envp)
 	check_for_path(&data, 1);
 	if (!data.cmd)
 	{
-		ft_error_f("command not found", data.args_cmd[0], CMD_NOT_FOUND);
+		if (!ft_strchr(data.args_cmd[0], '/'))
+			ft_error_f("command not found", data.args_cmd[0], CMD_NOT_FOUND);
 		free_cmd(&data);
 		free_paths(&data);
 		exit (CMD_NOT_FOUND);
