@@ -6,7 +6,7 @@
 /*   By: zyunusov <zyunusov@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 21:58:33 by zyunusov          #+#    #+#             */
-/*   Updated: 2022/10/26 22:48:35 by zyunusov         ###   ########.fr       */
+/*   Updated: 2022/10/27 12:27:43 by zyunusov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 void	ft_infile_check(char **argv, t_data *data)
 {
-	if (access(argv[1], F_OK | R_OK))
-		ft_error_f(strerror(errno), argv[1], 0);
-	else
-		data->infile = open(argv[1], O_RDONLY);
+	data->infile = open(argv[1], O_RDONLY);
+	if (data->infile < 0)
+	{
+		if (access(argv[1], F_OK | R_OK))
+			ft_error_f(strerror(errno), argv[1], 0);
+	}
 }
 
 int	ft_outfile_check(char **argv, t_data *data)
