@@ -6,7 +6,7 @@
 /*   By: zyunusov <zyunusov@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 18:16:18 by zyunusov          #+#    #+#             */
-/*   Updated: 2022/10/26 22:47:20 by zyunusov         ###   ########.fr       */
+/*   Updated: 2022/10/28 12:37:21 by zyunusov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	main(int argc, char **argv, char **envp)
 	int		status;
 
 	if (argc != 5)
-		ft_error_f(".\\pipex infile cmd1 cmd2 outfile", "Usage", 0);
+		ft_error_f(".\\pipex infile cmd1 cmd2 outfile", "Usage", 1);
 	status = ft_init(&data, argv, envp);
 	if (pipe(data.pipes) < 0)
 		perror("Pipe error:");
