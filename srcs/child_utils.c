@@ -6,7 +6,7 @@
 /*   By: zyunusov <zyunusov@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 11:50:49 by zyunusov          #+#    #+#             */
-/*   Updated: 2022/10/27 00:34:28 by zyunusov         ###   ########.fr       */
+/*   Updated: 2022/10/28 20:51:37 by zyunusov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	child_in(t_data data, char **argv, char **envp)
 	dup2(data.infile, STDIN_FILENO);
 	close_pipes(&data);
 	close(data.infile);
+	close(data.outfile);
 	parse_args(&data, argv[2]);
 	check_for_path(&data, 0);
 	if (!data.cmd)
@@ -50,6 +51,7 @@ void	child_out(t_data data, char **argv, char **envp)
 	dup2(data.outfile, STDOUT_FILENO);
 	close_pipes(&data);
 	close(data.outfile);
+	close(data.infile);
 	parse_args(&data, argv[3]);
 	check_for_path(&data, 1);
 	if (!data.cmd)
